@@ -41,40 +41,43 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 const getCountryWithNeighbour = function (country) {
-  const request = new XMLHttpRequest();
-  request.open('GET', `https://restcountries.eu/rest/v2/name/${country}`);
+  // const request = new XMLHttpRequest();
+  // request.open('GET', `https://restcountries.eu/rest/v2/name/${country}`);
+  fetch(`https://restcountries.eu/rest/v2/name/${country}`)
+    .then((response) => response.json())
+    .then((data) => renderCountry(data[0]));
 
   // console.log(request);
-  request.send();
+  // request.send();
 
   // JSON.parse(this.responseText));
 
-  request.addEventListener('load', function () {
-    // console.log(JSON.parse(this.responseText));
-    const [data] = JSON.parse(this.responseText);
+  // request.addEventListener('load', function () {
+  // console.log(JSON.parse(this.responseText));
+  // const [data] = JSON.parse(this.responseText);
 
-    console.log(data);
-    renderCountry(data);
-    const [neighbour] = data.borders;
+  // console.log(data);
+  // renderCountry(data);
+  //   const [neighbour] = data.borders;
 
-    console.log(neighbour);
-    if (!neighbour) return;
+  //   console.log(neighbour);
+  //   if (!neighbour) return;
 
-    const request2 = new XMLHttpRequest();
-    request2.open('GET', `https://restcountries.eu/rest/v2/alpha/${neighbour}`);
+  //   const request2 = new XMLHttpRequest();
+  //   request2.open('GET', `https://restcountries.eu/rest/v2/alpha/${neighbour}`);
 
-    // console.log(request);
-    request2.send();
+  //   // console.log(request);
+  //   request2.send();
 
-    console.log(request2);
+  //   console.log(request2);
 
-    request2.addEventListener('load', function () {
-      // console.log(this.responseText);
-      const data2 = JSON.parse(this.responseText);
+  //   request2.addEventListener('load', function () {
+  //     // console.log(this.responseText);
+  //     const data2 = JSON.parse(this.responseText);
 
-      renderCountry(data2, 'neighbour');
-    });
-  });
+  //     renderCountry(data2, 'neighbour');
+  //   });
+  // });
 };
 
 getCountryWithNeighbour('nepal');
@@ -83,18 +86,28 @@ getCountryWithNeighbour('nepal');
 // getCountryData('usa');
 // getCountryData('portugal');
 
-setTimeout(() => {
-  console.log('1 second passed');
-  setTimeout(() => {
-    console.log('2 seconds passed');
-    setTimeout(() => {
-      console.log('3 seconds passed');
-      setTimeout(() => {
-        console.log('4 seconds passed');
-        setTimeout(() => {
-          console.log('6 seconds passed');
-        }, 2000);
-      }, 1000);
-    }, 1000);
-  }, 1000);
-}, 1000);
+// setTimeout(() => {
+//   console.log('1 second passed');
+//   setTimeout(() => {
+//     console.log('2 seconds passed');
+//     setTimeout(() => {
+//       console.log('3 seconds passed');
+//       setTimeout(() => {
+//         console.log('4 seconds passed');
+//         setTimeout(() => {
+//           console.log('6 seconds passed');
+//         }, 2000);
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// }, 1000);
+
+// const exeFunction = (resolve) => {
+//   reject('Resolved');
+// };
+
+// const exeFunction = (reject) => {
+//   reject('Resolved');
+// };
+
+// console.log(new Promise(exeFunction));
