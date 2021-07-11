@@ -1,19 +1,21 @@
-// const p = document.querySelector('p');
+/*
+const p = document.querySelector('p');
 
-// p.textContent = 'This is a new text';
+p.textContent = 'This is a new text';
 
-// alert('Waiting for user response');
+alert('Waiting for user response');
 
-// p.textContent = 'New Text';
+p.textContent = 'New Text';
 
-// console.log(p);
+console.log(p);
 
-// setTimeout(function () {
-//   p.textContent = 'This is running in background';
-// }, 5000);
+setTimeout(function () {
+  p.textContent = 'This is running in background';
+}, 5000);
 
-// p.style.color = 'red';
-// https://restcountries.eu/rest/v2/name/{name}
+p.style.color = 'red';
+https://restcountries.eu/rest/v2/name/{name}
+*/
 
 const renderCountry = function (data, className = '') {
   const html = `<article class='country ${className}'>
@@ -45,69 +47,90 @@ const getCountryWithNeighbour = function (country) {
   // request.open('GET', `https://restcountries.eu/rest/v2/name/${country}`);
   fetch(`https://restcountries.eu/rest/v2/name/${country}`)
     .then((response) => response.json())
-    .then((data) => renderCountry(data[0]));
+    .then((data) => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[0];
+      // console.log(neighbour);
+      if (!neighbour) return;
 
-  // console.log(request);
-  // request.send();
+      return fetch(`https://restcountries.eu/rest/v2/alpha/${neighbour}`);
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data, 'neighbour'));
 
-  // JSON.parse(this.responseText));
+  /*
+  console.log(request);
+  request.send();
 
-  // request.addEventListener('load', function () {
-  // console.log(JSON.parse(this.responseText));
-  // const [data] = JSON.parse(this.responseText);
+  JSON.parse(this.responseText));
 
-  // console.log(data);
-  // renderCountry(data);
-  //   const [neighbour] = data.borders;
+  request.addEventListener('load', function () {
+  console.log(JSON.parse(this.responseText));
+  const [data] = JSON.parse(this.responseText);
 
-  //   console.log(neighbour);
-  //   if (!neighbour) return;
+  console.log(data);
+  renderCountry(data);
+    const [neighbour] = data.borders;
 
-  //   const request2 = new XMLHttpRequest();
-  //   request2.open('GET', `https://restcountries.eu/rest/v2/alpha/${neighbour}`);
+    console.log(neighbour);
+    if (!neighbour) return;
 
-  //   // console.log(request);
-  //   request2.send();
+    const request2 = new XMLHttpRequest();
+    request2.open('GET', `https://restcountries.eu/rest/v2/alpha/${neighbour}`);
 
-  //   console.log(request2);
+    // console.log(request);
+    request2.send();
 
-  //   request2.addEventListener('load', function () {
-  //     // console.log(this.responseText);
-  //     const data2 = JSON.parse(this.responseText);
+    console.log(request2);
 
-  //     renderCountry(data2, 'neighbour');
-  //   });
-  // });
+    request2.addEventListener('load', function () {
+      // console.log(this.responseText);
+      const data2 = JSON.parse(this.responseText);
+
+      renderCountry(data2, 'neighbour');
+    });
+  });
+  */
 };
 
 getCountryWithNeighbour('nepal');
-// getCountryWithNeighbour('china');
-// getCountryData('us');
-// getCountryData('usa');
-// getCountryData('portugal');
+/*
+getCountryWithNeighbour('china');
+getCountryData('us');
+getCountryData('usa');
+getCountryData('portugal');
 
-// setTimeout(() => {
-//   console.log('1 second passed');
-//   setTimeout(() => {
-//     console.log('2 seconds passed');
-//     setTimeout(() => {
-//       console.log('3 seconds passed');
-//       setTimeout(() => {
-//         console.log('4 seconds passed');
-//         setTimeout(() => {
-//           console.log('6 seconds passed');
-//         }, 2000);
-//       }, 1000);
-//     }, 1000);
-//   }, 1000);
-// }, 1000);
+setTimeout(() => {
+  console.log('1 second passed');
+  setTimeout(() => {
+    console.log('2 seconds passed');
+    setTimeout(() => {
+      console.log('3 seconds passed');
+      setTimeout(() => {
+        console.log('4 seconds passed');
+        setTimeout(() => {
+          console.log('6 seconds passed');
+        }, 2000);
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}, 1000);
 
-// const exeFunction = (resolve) => {
-//   reject('Resolved');
-// };
+const exeFunction = (resolve) => {
+  reject('Resolved');
+};
 
-// const exeFunction = (reject) => {
-//   reject('Resolved');
-// };
+const exeFunction = (reject) => {
+  reject('Resolved');
+};
 
-// console.log(new Promise(exeFunction));
+console.log(new Promise(exeFunction));
+*/
+
+// async function normalFunction() {
+//   return 5;
+// }
+
+// // console.log(normalFunction());
+
+// normalFunction().then((resolve) => console.log(resolve));
